@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-1=-0z9m=fu3hd(wv&1z63jf!190r@mq4*_u#vzf)&@u@f+tsol
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['congo-bitcoin.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
